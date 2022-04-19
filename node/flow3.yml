@@ -1,0 +1,23 @@
+config:
+  target: "https://api.vtex.com/api/checkout/pub/orderForm"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+
+
+scenarios:
+  - name: "Load Test"
+    flow:
+      - get:
+          url: "/7f9f76ccf8254c10b74750d8f1f4f3f6?an=jumboargentinaqavea"
+          capture:
+            - json: "$.results[0]"
+              as: "result"

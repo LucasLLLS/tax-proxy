@@ -1,0 +1,71 @@
+config:
+  target: "https://artillery--jumboargentinaqavea.myvtex.com/app/tax-proxy/checkout"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+
+
+scenarios:
+  - name: "Load Test"
+    flow:
+      - post:
+          url: "/simulation"
+          headers:
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdG9yZU5hbWUiOiJqdW1ib2FyZ2VudGluYXFhIiwiaWF0IjoxNTQwMzA0OTg3fQ.IPgAJq7PgVuBK79hAh3bizAtLp8KM3ID1Zd8phIaX30"
+          json:
+            kw: "{
+                    items: [
+                      {
+                        id: '0',
+                        sku: '12',
+                        ean: '7790895000430',
+                        refId: '7790895000430',
+                        unitMultiplier: 1,
+                        measurementUnit: 'un',
+                        targetPrice: 124.36,
+                        itemPrice: 1243.6,
+                        quantity: 10,
+                        discountPrice: 0,
+                        dockId: '128839131',
+                        freightPrice: 0,
+                        brandId: '230'
+                      }
+                    ],
+                    totals: [
+                      { id: 'Items', name: 'Total de los items', value: 124360 },
+                      { id: 'Discounts', name: 'Total de descuentos', value: 0 },
+                      { id: 'Shipping', name: 'Costo total del envío', value: 0 },
+                      { id: 'Tax', name: 'Costo total del cambio', value: 0 }
+                    ],
+                    clientEmail: '35817072',
+                    shippingDestination: {
+                      country: 'ARG',
+                      state: 'Buenos Aires',
+                      city: 'La Plata',
+                      neighborhood: null,
+                      postalCode: '1900',
+                      street: 'Calle 45'
+                    },
+                    clientData: {
+                      email: null,
+                      document: '35817072',
+                      corporateDocument: null,
+                      stateInscription: null,
+                      documentType: 'dni'
+                    },
+                    paymentData: null,
+                    orderFormId: null,
+                    salesChannel: '34',
+                    taxApp: null
+                  }"
+          capture:
+            - json: "$.results[0]"
+              as: "result"

@@ -1,0 +1,3 @@
+interface GetOrderformInput{
+    orderformId: string
+}

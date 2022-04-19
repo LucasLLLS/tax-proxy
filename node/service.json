@@ -1,0 +1,24 @@
+{
+  "stack": "nodejs",
+  "memory": 512,
+  "ttl": 43200,
+  "timeout": 10,
+  "workers": 4,
+  "cpu": 512,
+  "minReplicas": 10,
+  "maxReplicas": 50,
+  "routes": {
+    "taxSimulation": {
+      "path": "/app/tax-proxy/checkout/simulation",
+      "public": true
+    },
+    "orderInvoice": {
+      "path": "/app/tax-proxy/oms/invoice",
+      "public": true
+    },
+    "saveOrderform":{
+      "path": "/app/tax-proxy/checkout/orderform",
+      "public": true
+    }
+  }
+}
